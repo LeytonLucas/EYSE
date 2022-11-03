@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewBag.Title = "AgregarDepartamento";
+}
+
+<h2>AgregarDepartamento</h2>
+
+<form id="formulario" class="needs-validation">
+    <label for="exampleFormControlInput1" class="form-label lead">Departamento</label>
+    <input type="text" class="form-control mb-3" id="dpto" placeholder="Nombre del Departamento" name="departamento" required>
+
+    <button class="btn btn-primary">Crear Deartamento</button>
+</form>
+
+@section Scripts{
+    <script>
+
+        $("#formulario").on("submit", (e) => {
+            e.preventDefault();
+            let Departamento = $("#dpto").val().trim();
+
+            if (Departamento !== "" && Departamento !== null) {
+                $.post('@Url.Action("EnviarAgregarDto","Departamentos")', { dpto: Departamento }, (Response) => { mensajeRespuesta(Response) })
+            }
+        })
+
+        function mensajeRespuesta(Response) {
+            console.log(Response);
+            if (Response == "Exito") {
+                window.location.replace('@Url.Action("DepartamentosIndex","Departamentos")');
+            }
+        }
+
+    </script>
+} 
+

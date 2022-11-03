@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewBag.Title = "Agregar Division";
+}
+
+<Center><h2>Crear Division</h2></Center>
+
+<form id="formulario" class="needs-validation">
+    <label for="exampleFormControlInput1" class="form-label lead">Departamento</label>
+    <select name="departamento" class="form-control mb-2">
+        <option value="0">Sistemas</option>
+    </select>
+
+    <label for="exampleFormControlInput1" class="form-label lead">Division</label>
+    <input type="text" class="form-control mb-2" id="division" placeholder="Nombre de la Division" name="division">
+
+    <label for="exampleFormControlInput1" class="form-label lead">Local</label>
+    <input type="text" class="form-control mb-2" id="local" placeholder="Local" name="local">
+
+    <label for="exampleFormControlInput1" class="form-label lead">Observacion</label>
+    <input type="text" class="form-control mb-3" id="observacion" placeholder="Observacion (Opcional)" name="observacion">
+
+    <button onclick="enviar()" class="btn btn-primary">Crear Division</button>
+</form>

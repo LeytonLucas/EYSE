@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="EYSEModelStoreContainer" CdmEntityContainer="EYSEEntities">
+    <EntitySetMapping Name="Causas">
+      <EntityTypeMapping TypeName="EYSEModel.Causas">
+        <MappingFragment StoreEntitySet="Causas">
+          <ScalarProperty Name="IdMotivo" ColumnName="IdMotivo" />
+          <ScalarProperty Name="FallaMotivo" ColumnName="FallaMotivo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Departamento">
+      <EntityTypeMapping TypeName="EYSEModel.Departamento">
+        <MappingFragment StoreEntitySet="Departamento">
+          <ScalarProperty Name="IdDepartamento" ColumnName="IdDepartamento" />
+          <ScalarProperty Name="Departamento1" ColumnName="Departamento" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Division">
+      <EntityTypeMapping TypeName="EYSEModel.Division">
+        <MappingFragment StoreEntitySet="Division">
+          <ScalarProperty Name="IdDivision" ColumnName="IdDivision" />
+          <ScalarProperty Name="Division1" ColumnName="Division" />
+          <ScalarProperty Name="IdLocal" ColumnName="IdLocal" />
+          <ScalarProperty Name="Observacion" ColumnName="Observacion" />
+          <ScalarProperty Name="IdDepartamento" ColumnName="IdDepartamento" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Equipo">
+      <EntityTypeMapping TypeName="EYSEModel.Equipo">
+        <MappingFragment StoreEntitySet="Equipo">
+          <ScalarProperty Name="IdEquipo" ColumnName="IdEquipo" />
+          <ScalarProperty Name="Serie" ColumnName="Serie" />
+          <ScalarProperty Name="NombreEquipo" ColumnName="NombreEquipo" />
+          <ScalarProperty Name="IdTipoEquipo" ColumnName="IdTipoEquipo" />
+          <ScalarProperty Name="IdDivision" ColumnName="IdDivision" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Estado">
+      <EntityTypeMapping TypeName="EYSEModel.Estado">
+        <MappingFragment StoreEntitySet="Estado">
+          <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+          <ScalarProperty Name="Estado1" ColumnName="Estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Solicitud">
+      <EntityTypeMapping TypeName="EYSEModel.Solicitud">
+        <MappingFragment StoreEntitySet="Solicitud">
+          <ScalarProperty Name="IdSolicitud" ColumnName="IdSolicitud" />
+          <ScalarProperty Name="IdEquipo" ColumnName="IdEquipo" />
+          <ScalarProperty Name="Solicitante" ColumnName="Solicitante" />
+          <ScalarProperty Name="FechaIngreso" ColumnName="FechaIngreso" />
+          <ScalarProperty Name="IdMotivo" ColumnName="IdMotivo" />
+          <ScalarProperty Name="DescripcionFalla" ColumnName="DescripcionFalla" />
+          <ScalarProperty Name="TareaRealizada" ColumnName="TareaRealizada" />
+          <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+          <ScalarProperty Name="IdTecnico" ColumnName="IdTecnico" />
+          <ScalarProperty Name="FechaEgreso" ColumnName="FechaEgreso" />
+          <ScalarProperty Name="CampoVariable" ColumnName="CampoVariable" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tecnico">
+      <EntityTypeMapping TypeName="EYSEModel.Tecnico">
+        <MappingFragment StoreEntitySet="Tecnico">
+          <ScalarProperty Name="IdTecnico" ColumnName="IdTecnico" />
+          <ScalarProperty Name="DNI" ColumnName="DNI" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TipoEquipo">
+      <EntityTypeMapping TypeName="EYSEModel.TipoEquipo">
+        <MappingFragment StoreEntitySet="TipoEquipo">
+          <ScalarProperty Name="IdTipoEquipo" ColumnName="IdTipoEquipo" />
+          <ScalarProperty Name="Equipo" ColumnName="Equipo" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="SP_Eliminar_TipoEquipo" FunctionName="EYSEModel.Store.SP_Eliminar_TipoEquipo" />
+    <FunctionImportMapping FunctionImportName="SP_InsertarDepartamento" FunctionName="EYSEModel.Store.SP_InsertarDepartamento" />
+    <FunctionImportMapping FunctionImportName="SP_InsertarDivision" FunctionName="EYSEModel.Store.SP_InsertarDivision" />
+    <FunctionImportMapping FunctionImportName="SP_InsertarMotivoIngreso" FunctionName="EYSEModel.Store.SP_InsertarMotivoIngreso" />
+    <FunctionImportMapping FunctionImportName="SP_InsertarTecnico" FunctionName="EYSEModel.Store.SP_InsertarTecnico" />
+    <FunctionImportMapping FunctionImportName="SP_InsertarTipoEquipo" FunctionName="EYSEModel.Store.SP_InsertarTipoEquipo" />
+    <FunctionImportMapping FunctionImportName="SP_Obtener_Departamentos" FunctionName="EYSEModel.Store.SP_Obtener_Departamentos">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="EYSEModel.SP_Obtener_Departamentos_Result">
+          <ScalarProperty Name="IdDepartamento" ColumnName="IdDepartamento" />
+          <ScalarProperty Name="Departamento" ColumnName="Departamento" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_Obtener_Tecnicos" FunctionName="EYSEModel.Store.SP_Obtener_Tecnicos">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="EYSEModel.SP_Obtener_Tecnicos_Result">
+          <ScalarProperty Name="IdTecnico" ColumnName="IdTecnico" />
+          <ScalarProperty Name="DNI" ColumnName="DNI" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_Obtener_TipoEquipo" FunctionName="EYSEModel.Store.SP_Obtener_TipoEquipo">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="EYSEModel.SP_Obtener_TipoEquipo_Result">
+          <ScalarProperty Name="IdTipoEquipo" ColumnName="IdTipoEquipo" />
+          <ScalarProperty Name="Equipo" ColumnName="Equipo" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

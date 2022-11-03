@@ -1,0 +1,64 @@
+﻿
+@{
+    ViewBag.Title = "Agregar Equipo";
+}
+
+<center><h2>Agregar Nuevo Equipo</h2></center>
+
+
+@*<div class="container mb-3 d-flex justify-content-center">*@
+<form id="formulario" class="needs-validation">
+            <label for="exampleFormControlInput1" class="form-label lead">Equipo</label>
+            <input type="text" class="form-control" id="Equipo" placeholder="Nombre del Equipo" name="equipo" required>
+
+            <label for="exampleFormControlInput1" class="form-label lead">Descripcion</label>
+            <input type="text" class="form-control mb-3" id="Descripcion" placeholder="Descripcion (Opcional)" name="descripcion">
+
+            <button onclick="enviar()" class="btn btn-primary">Crear Equipo</button>
+</form>
+@*</div>*@
+
+
+@*<div class="input-group mb-3">
+        <label class="input-group-text" for="inputGroupSelect01">Options</label>
+        <select class="form-select" id="inputGroupSelect01">
+            <option selected>Choose...</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+        </select>
+    </div>*@
+
+@section Scripts{
+    <script>
+        const SoloTexto = /^[A-Za-zñÑ]+$/;
+        const formulario = document.getElementById('formulario');
+
+        formulario.addEventListener('submit', e => {
+            e.preventDefault();
+            let equipo = $("#Equipo").val()
+            let descripcion = $("#Descripcion").val()
+
+            if (!SoloTexto.test(equipo)) {
+                console.log('formato no valido');
+                $("#Equipo").addClass('is-invalid');
+                return;
+            } else {
+                $("#Equipo").addClass('is-valid');
+            }
+
+            $.post('@Url.Action("EnviarAgregarEquipo", "Equipos")', { equipo: equipo, descripcion: descripcion }, function (Response) { mensajeRespuesta(Response) });
+
+        })
+
+
+        function mensajeRespuesta(Respuesta) {
+            setTimeout(function () {
+                window.location.replace('@Url.Action("Index","Equipos")');
+            },1000)
+
+            console.log(Respuesta)
+        }
+
+    </script>
+}

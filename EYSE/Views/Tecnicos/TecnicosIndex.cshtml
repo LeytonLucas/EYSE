@@ -1,0 +1,46 @@
+﻿@using EYSE.Models
+@model List<SP_Obtener_Tecnicos_Result>
+
+@{
+    ViewBag.Title = "Tecnicos";
+}
+
+<center><h2>Tecnicos</h2></center>
+<div class="row mt-4 d-flex">
+    <div class="col-lg-10 d-flex justify-content-end  mb-3">
+        <a href="@Url.Action("AgregarTecnico")" class="btn btn-outline-success">Nuevo Tecnico</a>
+    </div>
+</div>
+
+<div class="row d-flex justify-content-center">
+    <div class="col-8">
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">#id</th>
+                    <th scope="col">Apellido</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @{ foreach (var item in Model)
+                    {
+
+                        <tr>
+                            <th scope="row">@item.DNI</th>
+                            <td>@item.Apellido</td>
+                            <td>@item.Nombre</td>
+                            <td><i class="">Delete</i></td>
+                        </tr>
+
+                    }
+                }
+            </tbody>
+        </table>
+
+    </div>
+
+</div>

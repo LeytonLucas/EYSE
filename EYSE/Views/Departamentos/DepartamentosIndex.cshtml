@@ -1,0 +1,80 @@
+﻿@using EYSE.Models
+@model List<SP_Obtener_Departamentos_Result>
+@{
+    ViewBag.Title = "DepartamentosIndex";
+}
+
+<center><h2>Departamentos</h2></center>
+<div class="row mt-4 d-flex">
+    <div class="col-lg-10 d-flex justify-content-end  mb-3">
+        <a href="@Url.Action("AgregarDepartamento")" class="btn btn-outline-success">Nuevo Departamento</a>
+    </div>
+</div>
+
+<div class="row d-flex justify-content-center mb-4">
+    <div class="col-12 col-lg-10">
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">#id</th>
+                    <th scope="col">Departamento</th>
+                    <th scope="col">Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @{ foreach (var item in Model)
+                    {
+
+                        <tr>
+                            <th scope="row">@item.IdDepartamento</th>
+                            <td>@item.Departamento</td>
+                            <td><i class="">Detalles</i></td>
+                        </tr>
+
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<div class="row d-flex justify-content-center mb-5">
+    <div class="row mt-4 d-flex">
+        <div class="col-lg-10 d-flex justify-content-end  mb-3">
+            <a href="@Url.Action("AgregarDepartamento")" class="btn btn-outline-success">Agregar Division</a>
+        </div>
+    </div>
+    <div class="card px-0 col-12 col-lg-10">
+        <div class="card-header py-1">
+            <h6 class="mb-0">Divisiones</h6>
+
+        </div>
+        <div class="card-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Nombre Division</th>
+                        <th scope="col">Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr>
+                        <td>Sistemas</td>
+                        <td><i class="">Detalles</i></td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+@*Modal para insertar un nuevo equipo*@
+@*$("div.card").hide()
+$("div.card").show()*@
+

@@ -1,0 +1,640 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="EYSEModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Causas">
+          <Key>
+            <PropertyRef Name="IdMotivo" />
+          </Key>
+          <Property Name="IdMotivo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FallaMotivo" Type="varchar" MaxLength="25" />
+        </EntityType>
+        <EntityType Name="Departamento">
+          <Key>
+            <PropertyRef Name="IdDepartamento" />
+          </Key>
+          <Property Name="IdDepartamento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Departamento" Type="varchar" MaxLength="25" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Division">
+          <Key>
+            <PropertyRef Name="IdDivision" />
+          </Key>
+          <Property Name="IdDivision" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Division" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="IdLocal" Type="varchar" MaxLength="5" />
+          <Property Name="Observacion" Type="varchar" MaxLength="100" />
+          <Property Name="IdDepartamento" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Equipo">
+          <Key>
+            <PropertyRef Name="IdEquipo" />
+          </Key>
+          <Property Name="IdEquipo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Serie" Type="varchar" MaxLength="25" />
+          <Property Name="NombreEquipo" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="IdTipoEquipo" Type="int" Nullable="false" />
+          <Property Name="IdDivision" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Estado">
+          <Key>
+            <PropertyRef Name="IdEstado" />
+          </Key>
+          <Property Name="IdEstado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Estado" Type="varchar" MaxLength="25" />
+        </EntityType>
+        <EntityType Name="Solicitud">
+          <Key>
+            <PropertyRef Name="IdSolicitud" />
+          </Key>
+          <Property Name="IdSolicitud" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdEquipo" Type="int" Nullable="false" />
+          <Property Name="Solicitante" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="FechaIngreso" Type="datetime" />
+          <Property Name="IdMotivo" Type="int" Nullable="false" />
+          <Property Name="DescripcionFalla" Type="varchar" MaxLength="100" />
+          <Property Name="TareaRealizada" Type="varchar" MaxLength="100" />
+          <Property Name="IdEstado" Type="int" Nullable="false" />
+          <Property Name="IdTecnico" Type="int" Nullable="false" />
+          <Property Name="FechaEgreso" Type="datetime" />
+          <Property Name="CampoVariable" Type="varchar" MaxLength="25" />
+        </EntityType>
+        <EntityType Name="Tecnico">
+          <Key>
+            <PropertyRef Name="IdTecnico" />
+          </Key>
+          <Property Name="IdTecnico" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DNI" Type="int" />
+          <Property Name="Nombre" Type="varchar" MaxLength="25" />
+          <Property Name="Apellido" Type="varchar" MaxLength="25" />
+        </EntityType>
+        <EntityType Name="TipoEquipo">
+          <Key>
+            <PropertyRef Name="IdTipoEquipo" />
+          </Key>
+          <Property Name="IdTipoEquipo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Equipo" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK__Division__IdDepa__3C69FB99">
+          <End Role="Departamento" Type="Self.Departamento" Multiplicity="1" />
+          <End Role="Division" Type="Self.Division" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departamento">
+              <PropertyRef Name="IdDepartamento" />
+            </Principal>
+            <Dependent Role="Division">
+              <PropertyRef Name="IdDepartamento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Equipo__IdDivisi__3D5E1FD2">
+          <End Role="Division" Type="Self.Division" Multiplicity="1" />
+          <End Role="Equipo" Type="Self.Equipo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Division">
+              <PropertyRef Name="IdDivision" />
+            </Principal>
+            <Dependent Role="Equipo">
+              <PropertyRef Name="IdDivision" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Equipo__IdTipoEq__300424B4">
+          <End Role="TipoEquipo" Type="Self.TipoEquipo" Multiplicity="1" />
+          <End Role="Equipo" Type="Self.Equipo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoEquipo">
+              <PropertyRef Name="IdTipoEquipo" />
+            </Principal>
+            <Dependent Role="Equipo">
+              <PropertyRef Name="IdTipoEquipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Solicitud__IdEqu__33D4B598">
+          <End Role="Equipo" Type="Self.Equipo" Multiplicity="1" />
+          <End Role="Solicitud" Type="Self.Solicitud" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Equipo">
+              <PropertyRef Name="IdEquipo" />
+            </Principal>
+            <Dependent Role="Solicitud">
+              <PropertyRef Name="IdEquipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Solicitud__IdEst__36B12243">
+          <End Role="Estado" Type="Self.Estado" Multiplicity="1" />
+          <End Role="Solicitud" Type="Self.Solicitud" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estado">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="Solicitud">
+              <PropertyRef Name="IdEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Solicitud__IdMot__35BCFE0A">
+          <End Role="Causas" Type="Self.Causas" Multiplicity="1" />
+          <End Role="Solicitud" Type="Self.Solicitud" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Causas">
+              <PropertyRef Name="IdMotivo" />
+            </Principal>
+            <Dependent Role="Solicitud">
+              <PropertyRef Name="IdMotivo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Solicitud__IdTec__37A5467C">
+          <End Role="Tecnico" Type="Self.Tecnico" Multiplicity="1" />
+          <End Role="Solicitud" Type="Self.Solicitud" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tecnico">
+              <PropertyRef Name="IdTecnico" />
+            </Principal>
+            <Dependent Role="Solicitud">
+              <PropertyRef Name="IdTecnico" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="SP_Eliminar_TipoEquipo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdTipoEquipo" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_InsertarDepartamento" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Departamento" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_InsertarDivision" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Division" Type="varchar" Mode="In" />
+          <Parameter Name="Local" Type="varchar" Mode="In" />
+          <Parameter Name="Observacion" Type="varchar" Mode="In" />
+          <Parameter Name="IdDepartamento" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_InsertarMotivoIngreso" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="FallaMotivo" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_InsertarTecnico" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DNI" Type="int" Mode="In" />
+          <Parameter Name="Nombre" Type="varchar" Mode="In" />
+          <Parameter Name="Apellido" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_InsertarTipoEquipo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Equipo" Type="varchar" Mode="In" />
+          <Parameter Name="Descripcion" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_Obtener_Departamentos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdDepartamento" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_Obtener_Tecnicos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdTecnico" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_Obtener_TipoEquipo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="EYSEModelStoreContainer">
+          <EntitySet Name="Causas" EntityType="Self.Causas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Departamento" EntityType="Self.Departamento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Division" EntityType="Self.Division" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Equipo" EntityType="Self.Equipo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Estado" EntityType="Self.Estado" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Solicitud" EntityType="Self.Solicitud" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tecnico" EntityType="Self.Tecnico" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TipoEquipo" EntityType="Self.TipoEquipo" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Division__IdDepa__3C69FB99" Association="Self.FK__Division__IdDepa__3C69FB99">
+            <End Role="Departamento" EntitySet="Departamento" />
+            <End Role="Division" EntitySet="Division" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Equipo__IdDivisi__3D5E1FD2" Association="Self.FK__Equipo__IdDivisi__3D5E1FD2">
+            <End Role="Division" EntitySet="Division" />
+            <End Role="Equipo" EntitySet="Equipo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Equipo__IdTipoEq__300424B4" Association="Self.FK__Equipo__IdTipoEq__300424B4">
+            <End Role="TipoEquipo" EntitySet="TipoEquipo" />
+            <End Role="Equipo" EntitySet="Equipo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Solicitud__IdEqu__33D4B598" Association="Self.FK__Solicitud__IdEqu__33D4B598">
+            <End Role="Equipo" EntitySet="Equipo" />
+            <End Role="Solicitud" EntitySet="Solicitud" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Solicitud__IdEst__36B12243" Association="Self.FK__Solicitud__IdEst__36B12243">
+            <End Role="Estado" EntitySet="Estado" />
+            <End Role="Solicitud" EntitySet="Solicitud" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Solicitud__IdMot__35BCFE0A" Association="Self.FK__Solicitud__IdMot__35BCFE0A">
+            <End Role="Causas" EntitySet="Causas" />
+            <End Role="Solicitud" EntitySet="Solicitud" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Solicitud__IdTec__37A5467C" Association="Self.FK__Solicitud__IdTec__37A5467C">
+            <End Role="Tecnico" EntitySet="Tecnico" />
+            <End Role="Solicitud" EntitySet="Solicitud" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="EYSEModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Causas">
+          <Key>
+            <PropertyRef Name="IdMotivo" />
+          </Key>
+          <Property Name="IdMotivo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FallaMotivo" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Solicitud" Relationship="Self.FK__Solicitud__IdMot__35BCFE0A" FromRole="Causas" ToRole="Solicitud" />
+        </EntityType>
+        <EntityType Name="Departamento">
+          <Key>
+            <PropertyRef Name="IdDepartamento" />
+          </Key>
+          <Property Name="IdDepartamento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Departamento1" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Division" Relationship="Self.FK__Division__IdDepa__3C69FB99" FromRole="Departamento" ToRole="Division" />
+        </EntityType>
+        <EntityType Name="Division">
+          <Key>
+            <PropertyRef Name="IdDivision" />
+          </Key>
+          <Property Name="IdDivision" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Division1" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IdLocal" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="Observacion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="IdDepartamento" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Departamento" Relationship="Self.FK__Division__IdDepa__3C69FB99" FromRole="Division" ToRole="Departamento" />
+          <NavigationProperty Name="Equipo" Relationship="Self.FK__Equipo__IdDivisi__3D5E1FD2" FromRole="Division" ToRole="Equipo" />
+        </EntityType>
+        <EntityType Name="Equipo">
+          <Key>
+            <PropertyRef Name="IdEquipo" />
+          </Key>
+          <Property Name="IdEquipo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Serie" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="NombreEquipo" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IdTipoEquipo" Type="Int32" Nullable="false" />
+          <Property Name="IdDivision" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Division" Relationship="Self.FK__Equipo__IdDivisi__3D5E1FD2" FromRole="Equipo" ToRole="Division" />
+          <NavigationProperty Name="TipoEquipo" Relationship="Self.FK__Equipo__IdTipoEq__300424B4" FromRole="Equipo" ToRole="TipoEquipo" />
+          <NavigationProperty Name="Solicitud" Relationship="Self.FK__Solicitud__IdEqu__33D4B598" FromRole="Equipo" ToRole="Solicitud" />
+        </EntityType>
+        <EntityType Name="Estado">
+          <Key>
+            <PropertyRef Name="IdEstado" />
+          </Key>
+          <Property Name="IdEstado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Estado1" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Solicitud" Relationship="Self.FK__Solicitud__IdEst__36B12243" FromRole="Estado" ToRole="Solicitud" />
+        </EntityType>
+        <EntityType Name="Solicitud">
+          <Key>
+            <PropertyRef Name="IdSolicitud" />
+          </Key>
+          <Property Name="IdSolicitud" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdEquipo" Type="Int32" Nullable="false" />
+          <Property Name="Solicitante" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FechaIngreso" Type="DateTime" Precision="3" />
+          <Property Name="IdMotivo" Type="Int32" Nullable="false" />
+          <Property Name="DescripcionFalla" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="TareaRealizada" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="IdEstado" Type="Int32" Nullable="false" />
+          <Property Name="IdTecnico" Type="Int32" Nullable="false" />
+          <Property Name="FechaEgreso" Type="DateTime" Precision="3" />
+          <Property Name="CampoVariable" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Causas" Relationship="Self.FK__Solicitud__IdMot__35BCFE0A" FromRole="Solicitud" ToRole="Causas" />
+          <NavigationProperty Name="Equipo" Relationship="Self.FK__Solicitud__IdEqu__33D4B598" FromRole="Solicitud" ToRole="Equipo" />
+          <NavigationProperty Name="Estado" Relationship="Self.FK__Solicitud__IdEst__36B12243" FromRole="Solicitud" ToRole="Estado" />
+          <NavigationProperty Name="Tecnico" Relationship="Self.FK__Solicitud__IdTec__37A5467C" FromRole="Solicitud" ToRole="Tecnico" />
+        </EntityType>
+        <EntityType Name="Tecnico">
+          <Key>
+            <PropertyRef Name="IdTecnico" />
+          </Key>
+          <Property Name="IdTecnico" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DNI" Type="Int32" />
+          <Property Name="Nombre" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Apellido" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Solicitud" Relationship="Self.FK__Solicitud__IdTec__37A5467C" FromRole="Tecnico" ToRole="Solicitud" />
+        </EntityType>
+        <EntityType Name="TipoEquipo">
+          <Key>
+            <PropertyRef Name="IdTipoEquipo" />
+          </Key>
+          <Property Name="IdTipoEquipo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Equipo" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Equipo1" Relationship="Self.FK__Equipo__IdTipoEq__300424B4" FromRole="TipoEquipo" ToRole="Equipo" />
+        </EntityType>
+        <Association Name="FK__Solicitud__IdMot__35BCFE0A">
+          <End Role="Causas" Type="Self.Causas" Multiplicity="1" />
+          <End Role="Solicitud" Type="Self.Solicitud" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Causas">
+              <PropertyRef Name="IdMotivo" />
+            </Principal>
+            <Dependent Role="Solicitud">
+              <PropertyRef Name="IdMotivo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Division__IdDepa__3C69FB99">
+          <End Role="Departamento" Type="Self.Departamento" Multiplicity="1" />
+          <End Role="Division" Type="Self.Division" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departamento">
+              <PropertyRef Name="IdDepartamento" />
+            </Principal>
+            <Dependent Role="Division">
+              <PropertyRef Name="IdDepartamento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Equipo__IdDivisi__3D5E1FD2">
+          <End Role="Division" Type="Self.Division" Multiplicity="1" />
+          <End Role="Equipo" Type="Self.Equipo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Division">
+              <PropertyRef Name="IdDivision" />
+            </Principal>
+            <Dependent Role="Equipo">
+              <PropertyRef Name="IdDivision" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Equipo__IdTipoEq__300424B4">
+          <End Role="TipoEquipo" Type="Self.TipoEquipo" Multiplicity="1" />
+          <End Role="Equipo" Type="Self.Equipo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoEquipo">
+              <PropertyRef Name="IdTipoEquipo" />
+            </Principal>
+            <Dependent Role="Equipo">
+              <PropertyRef Name="IdTipoEquipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Solicitud__IdEqu__33D4B598">
+          <End Role="Equipo" Type="Self.Equipo" Multiplicity="1" />
+          <End Role="Solicitud" Type="Self.Solicitud" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Equipo">
+              <PropertyRef Name="IdEquipo" />
+            </Principal>
+            <Dependent Role="Solicitud">
+              <PropertyRef Name="IdEquipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Solicitud__IdEst__36B12243">
+          <End Role="Estado" Type="Self.Estado" Multiplicity="1" />
+          <End Role="Solicitud" Type="Self.Solicitud" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estado">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="Solicitud">
+              <PropertyRef Name="IdEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Solicitud__IdTec__37A5467C">
+          <End Role="Tecnico" Type="Self.Tecnico" Multiplicity="1" />
+          <End Role="Solicitud" Type="Self.Solicitud" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tecnico">
+              <PropertyRef Name="IdTecnico" />
+            </Principal>
+            <Dependent Role="Solicitud">
+              <PropertyRef Name="IdTecnico" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EYSEEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Causas" EntityType="Self.Causas" />
+          <EntitySet Name="Departamento" EntityType="Self.Departamento" />
+          <EntitySet Name="Division" EntityType="Self.Division" />
+          <EntitySet Name="Equipo" EntityType="Self.Equipo" />
+          <EntitySet Name="Estado" EntityType="Self.Estado" />
+          <EntitySet Name="Solicitud" EntityType="Self.Solicitud" />
+          <EntitySet Name="Tecnico" EntityType="Self.Tecnico" />
+          <EntitySet Name="TipoEquipo" EntityType="Self.TipoEquipo" />
+          <AssociationSet Name="FK__Solicitud__IdMot__35BCFE0A" Association="Self.FK__Solicitud__IdMot__35BCFE0A">
+            <End Role="Causas" EntitySet="Causas" />
+            <End Role="Solicitud" EntitySet="Solicitud" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Division__IdDepa__3C69FB99" Association="Self.FK__Division__IdDepa__3C69FB99">
+            <End Role="Departamento" EntitySet="Departamento" />
+            <End Role="Division" EntitySet="Division" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Equipo__IdDivisi__3D5E1FD2" Association="Self.FK__Equipo__IdDivisi__3D5E1FD2">
+            <End Role="Division" EntitySet="Division" />
+            <End Role="Equipo" EntitySet="Equipo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Equipo__IdTipoEq__300424B4" Association="Self.FK__Equipo__IdTipoEq__300424B4">
+            <End Role="TipoEquipo" EntitySet="TipoEquipo" />
+            <End Role="Equipo" EntitySet="Equipo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Solicitud__IdEqu__33D4B598" Association="Self.FK__Solicitud__IdEqu__33D4B598">
+            <End Role="Equipo" EntitySet="Equipo" />
+            <End Role="Solicitud" EntitySet="Solicitud" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Solicitud__IdEst__36B12243" Association="Self.FK__Solicitud__IdEst__36B12243">
+            <End Role="Estado" EntitySet="Estado" />
+            <End Role="Solicitud" EntitySet="Solicitud" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Solicitud__IdTec__37A5467C" Association="Self.FK__Solicitud__IdTec__37A5467C">
+            <End Role="Tecnico" EntitySet="Tecnico" />
+            <End Role="Solicitud" EntitySet="Solicitud" />
+          </AssociationSet>
+          <FunctionImport Name="SP_Eliminar_TipoEquipo">
+            <Parameter Name="IdTipoEquipo" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_InsertarDepartamento">
+            <Parameter Name="Departamento" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_InsertarDivision">
+            <Parameter Name="Division" Mode="In" Type="String" />
+            <Parameter Name="Local" Mode="In" Type="String" />
+            <Parameter Name="Observacion" Mode="In" Type="String" />
+            <Parameter Name="IdDepartamento" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_InsertarMotivoIngreso">
+            <Parameter Name="FallaMotivo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_InsertarTecnico">
+            <Parameter Name="DNI" Mode="In" Type="Int32" />
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="Apellido" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_InsertarTipoEquipo">
+            <Parameter Name="Equipo" Mode="In" Type="String" />
+            <Parameter Name="Descripcion" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Obtener_Departamentos" ReturnType="Collection(EYSEModel.SP_Obtener_Departamentos_Result)">
+            <Parameter Name="IdDepartamento" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Obtener_Tecnicos" ReturnType="Collection(EYSEModel.SP_Obtener_Tecnicos_Result)">
+            <Parameter Name="IdTecnico" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Obtener_TipoEquipo" ReturnType="Collection(EYSEModel.SP_Obtener_TipoEquipo_Result)" />
+        </EntityContainer>
+        <ComplexType Name="SP_Obtener_Departamentos_Result">
+          <Property Type="Int32" Name="IdDepartamento" Nullable="false" />
+          <Property Type="String" Name="Departamento" Nullable="false" MaxLength="25" />
+        </ComplexType>
+        <ComplexType Name="SP_Obtener_Tecnicos_Result">
+          <Property Type="Int32" Name="IdTecnico" Nullable="false" />
+          <Property Type="Int32" Name="DNI" Nullable="true" />
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="25" />
+          <Property Type="String" Name="Apellido" Nullable="true" MaxLength="25" />
+        </ComplexType>
+        <ComplexType Name="SP_Obtener_TipoEquipo_Result">
+          <Property Type="Int32" Name="IdTipoEquipo" Nullable="false" />
+          <Property Type="String" Name="Equipo" Nullable="false" MaxLength="25" />
+          <Property Type="String" Name="Descripcion" Nullable="true" MaxLength="50" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="EYSEModelStoreContainer" CdmEntityContainer="EYSEEntities">
+          <EntitySetMapping Name="Causas">
+            <EntityTypeMapping TypeName="EYSEModel.Causas">
+              <MappingFragment StoreEntitySet="Causas">
+                <ScalarProperty Name="IdMotivo" ColumnName="IdMotivo" />
+                <ScalarProperty Name="FallaMotivo" ColumnName="FallaMotivo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Departamento">
+            <EntityTypeMapping TypeName="EYSEModel.Departamento">
+              <MappingFragment StoreEntitySet="Departamento">
+                <ScalarProperty Name="IdDepartamento" ColumnName="IdDepartamento" />
+                <ScalarProperty Name="Departamento1" ColumnName="Departamento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Division">
+            <EntityTypeMapping TypeName="EYSEModel.Division">
+              <MappingFragment StoreEntitySet="Division">
+                <ScalarProperty Name="IdDivision" ColumnName="IdDivision" />
+                <ScalarProperty Name="Division1" ColumnName="Division" />
+                <ScalarProperty Name="IdLocal" ColumnName="IdLocal" />
+                <ScalarProperty Name="Observacion" ColumnName="Observacion" />
+                <ScalarProperty Name="IdDepartamento" ColumnName="IdDepartamento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Equipo">
+            <EntityTypeMapping TypeName="EYSEModel.Equipo">
+              <MappingFragment StoreEntitySet="Equipo">
+                <ScalarProperty Name="IdEquipo" ColumnName="IdEquipo" />
+                <ScalarProperty Name="Serie" ColumnName="Serie" />
+                <ScalarProperty Name="NombreEquipo" ColumnName="NombreEquipo" />
+                <ScalarProperty Name="IdTipoEquipo" ColumnName="IdTipoEquipo" />
+                <ScalarProperty Name="IdDivision" ColumnName="IdDivision" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Estado">
+            <EntityTypeMapping TypeName="EYSEModel.Estado">
+              <MappingFragment StoreEntitySet="Estado">
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+                <ScalarProperty Name="Estado1" ColumnName="Estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Solicitud">
+            <EntityTypeMapping TypeName="EYSEModel.Solicitud">
+              <MappingFragment StoreEntitySet="Solicitud">
+                <ScalarProperty Name="IdSolicitud" ColumnName="IdSolicitud" />
+                <ScalarProperty Name="IdEquipo" ColumnName="IdEquipo" />
+                <ScalarProperty Name="Solicitante" ColumnName="Solicitante" />
+                <ScalarProperty Name="FechaIngreso" ColumnName="FechaIngreso" />
+                <ScalarProperty Name="IdMotivo" ColumnName="IdMotivo" />
+                <ScalarProperty Name="DescripcionFalla" ColumnName="DescripcionFalla" />
+                <ScalarProperty Name="TareaRealizada" ColumnName="TareaRealizada" />
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+                <ScalarProperty Name="IdTecnico" ColumnName="IdTecnico" />
+                <ScalarProperty Name="FechaEgreso" ColumnName="FechaEgreso" />
+                <ScalarProperty Name="CampoVariable" ColumnName="CampoVariable" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tecnico">
+            <EntityTypeMapping TypeName="EYSEModel.Tecnico">
+              <MappingFragment StoreEntitySet="Tecnico">
+                <ScalarProperty Name="IdTecnico" ColumnName="IdTecnico" />
+                <ScalarProperty Name="DNI" ColumnName="DNI" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoEquipo">
+            <EntityTypeMapping TypeName="EYSEModel.TipoEquipo">
+              <MappingFragment StoreEntitySet="TipoEquipo">
+                <ScalarProperty Name="IdTipoEquipo" ColumnName="IdTipoEquipo" />
+                <ScalarProperty Name="Equipo" ColumnName="Equipo" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SP_Eliminar_TipoEquipo" FunctionName="EYSEModel.Store.SP_Eliminar_TipoEquipo" />
+          <FunctionImportMapping FunctionImportName="SP_InsertarDepartamento" FunctionName="EYSEModel.Store.SP_InsertarDepartamento" />
+          <FunctionImportMapping FunctionImportName="SP_InsertarDivision" FunctionName="EYSEModel.Store.SP_InsertarDivision" />
+          <FunctionImportMapping FunctionImportName="SP_InsertarMotivoIngreso" FunctionName="EYSEModel.Store.SP_InsertarMotivoIngreso" />
+          <FunctionImportMapping FunctionImportName="SP_InsertarTecnico" FunctionName="EYSEModel.Store.SP_InsertarTecnico" />
+          <FunctionImportMapping FunctionImportName="SP_InsertarTipoEquipo" FunctionName="EYSEModel.Store.SP_InsertarTipoEquipo" />
+          <FunctionImportMapping FunctionImportName="SP_Obtener_Departamentos" FunctionName="EYSEModel.Store.SP_Obtener_Departamentos">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="EYSEModel.SP_Obtener_Departamentos_Result">
+                <ScalarProperty Name="IdDepartamento" ColumnName="IdDepartamento" />
+                <ScalarProperty Name="Departamento" ColumnName="Departamento" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Obtener_Tecnicos" FunctionName="EYSEModel.Store.SP_Obtener_Tecnicos">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="EYSEModel.SP_Obtener_Tecnicos_Result">
+                <ScalarProperty Name="IdTecnico" ColumnName="IdTecnico" />
+                <ScalarProperty Name="DNI" ColumnName="DNI" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Obtener_TipoEquipo" FunctionName="EYSEModel.Store.SP_Obtener_TipoEquipo">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="EYSEModel.SP_Obtener_TipoEquipo_Result">
+                <ScalarProperty Name="IdTipoEquipo" ColumnName="IdTipoEquipo" />
+                <ScalarProperty Name="Equipo" ColumnName="Equipo" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<center><h2>Configuracion General del Sistema</h2></center>
+<br>
+<div class="row">
+    <div class="col-12 col-lg-4 my-3">
+        <a href="@Url.Action("Index","Equipos")" class="btn btn-outline-primary w-75">Equipos</a>
+    </div>
+    <div class="col-12 col-lg-4 my-3">
+        <a href="@Url.Action("TecnicosIndex","Tecnicos")" class="btn btn-outline-primary w-75">Personal</a>
+    </div>
+    <div class="col-12 col-lg-4 my-3">
+        <a href="@Url.Action("#","Equipos")" class="btn btn-outline-primary w-75">Motivos de Ingreso</a>
+    </div>
+    <div class="col-12 col-lg-4 my-3">
+        <a href="@Url.Action("DepartamentosIndex","Departamentos")" class="btn btn-outline-primary w-75">Deparamentos</a>
+    </div>
+
+</div>
