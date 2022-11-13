@@ -209,6 +209,9 @@
       <End Role="Tecnico" EntitySet="Tecnico" />
       <End Role="Solicitud" EntitySet="Solicitud" />
     </AssociationSet>
+    <FunctionImport Name="Eliminar_Tecnico">
+      <Parameter Name="dni" Mode="In" Type="Int32" />
+    </FunctionImport>
     <FunctionImport Name="SP_Eliminar_TipoEquipo">
       <Parameter Name="IdTipoEquipo" Mode="In" Type="Int32" />
     </FunctionImport>

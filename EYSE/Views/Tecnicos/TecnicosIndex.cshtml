@@ -84,7 +84,12 @@
         }
 
         function RespuestaEliminar(Response) {
-            console.log(Response)
+            $("#modalConsulta").modal("hide");
+            if (Response == "Eliminado") {
+                setTimeout(window.location.reload(), 1500);
+            } else {
+                alert("Ocurrio un error");
+            }
         };
     </script>
 }

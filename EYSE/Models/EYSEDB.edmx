@@ -163,6 +163,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="Eliminar_Tecnico" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="dni" Type="int" Mode="In" />
+        </Function>
         <Function Name="SP_Eliminar_TipoEquipo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdTipoEquipo" Type="int" Mode="In" />
         </Function>
@@ -446,6 +449,9 @@
             <End Role="Tecnico" EntitySet="Tecnico" />
             <End Role="Solicitud" EntitySet="Solicitud" />
           </AssociationSet>
+          <FunctionImport Name="Eliminar_Tecnico">
+            <Parameter Name="dni" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="SP_Eliminar_TipoEquipo">
             <Parameter Name="IdTipoEquipo" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -581,6 +587,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Eliminar_Tecnico" FunctionName="EYSEModel.Store.Eliminar_Tecnico" />
           <FunctionImportMapping FunctionImportName="SP_Eliminar_TipoEquipo" FunctionName="EYSEModel.Store.SP_Eliminar_TipoEquipo" />
           <FunctionImportMapping FunctionImportName="SP_InsertarDepartamento" FunctionName="EYSEModel.Store.SP_InsertarDepartamento" />
           <FunctionImportMapping FunctionImportName="SP_InsertarDivision" FunctionName="EYSEModel.Store.SP_InsertarDivision" />

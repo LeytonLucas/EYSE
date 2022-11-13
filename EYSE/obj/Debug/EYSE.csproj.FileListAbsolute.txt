@@ -68,4 +68,3 @@ C:\Users\Leyton\source\repos\EYSE\EYSE\obj\Debug\EYSE.csproj.CoreCompileInputs.c
 C:\Users\Leyton\source\repos\EYSE\EYSE\obj\Debug\EYSE.csproj.CopyComplete
 C:\Users\Leyton\source\repos\EYSE\EYSE\obj\Debug\EYSE.dll
 C:\Users\Leyton\source\repos\EYSE\EYSE\obj\Debug\EYSE.pdb
-C:\Users\Leyton\source\repos\EYSE\EYSE\obj\Debug\EYSE.csproj.AssemblyReference.cache

@@ -36,6 +36,15 @@ namespace EYSE.Models
         public virtual DbSet<Tecnico> Tecnico { get; set; }
         public virtual DbSet<TipoEquipo> TipoEquipo { get; set; }
     
+        public virtual int Eliminar_Tecnico(Nullable<int> dni)
+        {
+            var dniParameter = dni.HasValue ?
+                new ObjectParameter("dni", dni) :
+                new ObjectParameter("dni", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Eliminar_Tecnico", dniParameter);
+        }
+    
         public virtual int SP_Eliminar_TipoEquipo(Nullable<int> idTipoEquipo)
         {
             var idTipoEquipoParameter = idTipoEquipo.HasValue ?

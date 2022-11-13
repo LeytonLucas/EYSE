@@ -83,6 +83,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="Eliminar_Tecnico" FunctionName="EYSEModel.Store.Eliminar_Tecnico" />
     <FunctionImportMapping FunctionImportName="SP_Eliminar_TipoEquipo" FunctionName="EYSEModel.Store.SP_Eliminar_TipoEquipo" />
     <FunctionImportMapping FunctionImportName="SP_InsertarDepartamento" FunctionName="EYSEModel.Store.SP_InsertarDepartamento" />
     <FunctionImportMapping FunctionImportName="SP_InsertarDivision" FunctionName="EYSEModel.Store.SP_InsertarDivision" />

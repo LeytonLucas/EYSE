@@ -158,6 +158,9 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Function Name="Eliminar_Tecnico" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="dni" Type="int" Mode="In" />
+  </Function>
   <Function Name="SP_Eliminar_TipoEquipo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="IdTipoEquipo" Type="int" Mode="In" />
   </Function>
