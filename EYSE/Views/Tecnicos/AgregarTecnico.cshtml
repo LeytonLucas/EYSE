@@ -1,0 +1,78 @@
+﻿
+@{
+    ViewBag.Title = "Agregar Tecnico";
+}
+
+<center><h2>Agregar Nuevo Tecnico</h2></center>
+<div class="container d-inline-flex justify-content-center">
+
+    <form id="formulario" class="needs-validation col-12 col-md-8" >
+
+        <label for="exampleFormControlInput1" class="form-label lead">DNI</label>
+        <input type="number" class="form-control shadow-sm" id="DNI" placeholder="DNI" name="DNI" required>
+
+        <label for="exampleFormControlInput1" class="form-label lead">Apellido</label>
+        <input type="text" class="form-control shadow-sm" id="Apellido" placeholder="Apellido" name="Apellido" required>
+
+        <label for="exampleFormControlInput1" class="form-label lead">Nombre</label>
+        <input type="text" class="form-control mb-3 shadow-sm" id="Nombre" placeholder="Nombre" name="Nombre" required>
+
+        <button class="btn btn-primary">Crear Tecnico</button>
+
+    </form>
+
+</div>
+    
+
+
+
+@section Scripts{
+    <script>
+
+        const SoloTexto =/^[a-zA-Z\sñáéíóúÁÉÍÓÚ]+$/;
+        const formulario = document.getElementById('formulario');
+
+        let Tecnico = {
+            dni : "",
+            apellido : "",
+            nombre : ""
+        }
+
+        formulario.addEventListener("submit", (e) => {
+            e.preventDefault();
+            Tecnico.dni = $("#DNI").val()
+            Tecnico.nombre = $("#Nombre").val()
+            Tecnico.apellido = $("#Apellido").val()
+
+            if (!SoloTexto.test(Tecnico.apellido)) {
+                console.log('formato de apellido no valido');
+                $("#Apellido").addClass('is-invalid');
+            } else {
+                $("#Apellido").removeClass('is-invalid');
+                $("#Apellido").addClass('is-valid');
+            }
+
+            if (!SoloTexto.test(Tecnico.nombre)) {
+                console.log('formato no nombre valido');
+                $("#Nombre").addClass('is-invalid');
+                
+            } else {
+                $("#Nombre").removeClass('is-invalid');
+                $("#Nombre").addClass('is-valid');
+            }
+
+            console.log(JSON.stringify(Tecnico));
+            $.post('@Url.Action("EnviarAgregarTecnico", "Tecnicos")', { TecnicoJson: JSON.stringify(Tecnico) }, function (Response) { mensajeRespuesta(Response) });
+        });
+
+
+        function mensajeRespuesta(Respuesta) {
+            alert(Respuesta);
+            setTimeout(function () {
+                window.location.replace('@Url.Action("TecnicosIndex", "Tecnicos")');
+            },1000)
+
+        }
+
+    </script>
+}

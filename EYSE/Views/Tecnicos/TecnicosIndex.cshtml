@@ -33,7 +33,10 @@
                             <th scope="row">@item.DNI</th>
                             <td>@item.Apellido</td>
                             <td>@item.Nombre</td>
-                            <td><i class="">Delete</i></td>
+                            <td>
+                                <a class="fa fa-edit text-success"></a> &nbsp;
+                                <a class="fa fa-times text-danger" onclick="confirmacion(@item.DNI)"></a>
+                            </td>
                         </tr>
 
                     }
@@ -44,3 +47,45 @@
     </div>
 
 </div>
+
+
+@*Modal Para consulta de Eliminacion*@
+<div class="modal" id="modalConsulta" tabindex="-1">
+    <div class="modal-dialog"  >
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirmar Accion</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>¿Esta seguro que desea realizar eliminar este Elemento?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-outline-danger">Eliminar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+    <script>
+
+        function confirmacion(dni) {
+
+            $("#modalConsulta").modal("show");
+            let btnEliminar = $("#modalConsulta .modal-footer .btn-outline-danger");
+            btnEliminar.on("click", () => {
+
+                $.post('@Url.Action("EnviarEliminarTecnico", "Tecnicos")', { DNI: dni }, function (Response) { RespuestaEliminar(Response) });
+                @*console.log('@Url.Action("EliminarTecnico", "Tecnicos")', { DNI: dni });*@
+            })
+        }
+
+        function RespuestaEliminar(Response) {
+            console.log(Response)
+        };
+    </script>
+}
+

@@ -23,7 +23,8 @@ namespace EYSE
                       "~/Scripts/bootstrap.js"));
 
             bundles.Add(new Bundle("~/bundles/GeneralEYSE").Include(
-                      "~/Scripts/FuncionesGenerales.js"));
+                      "~/Scripts/FuncionesGenerales.js",
+                      "~/Scripts/fontawesome/all.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
