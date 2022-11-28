@@ -68,7 +68,7 @@ namespace EYSE.Controllers
                 
                 using (EYSEEntities db = new EYSEEntities())
                 {
-                    db.Eliminar_Tecnico(DNI);
+                    db.SP_Eliminar_Tecnico(DNI);
                 }
 
                 return Json("Eliminado");

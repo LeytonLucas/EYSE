@@ -209,11 +209,19 @@
       <End Role="Tecnico" EntitySet="Tecnico" />
       <End Role="Solicitud" EntitySet="Solicitud" />
     </AssociationSet>
-    <FunctionImport Name="Eliminar_Tecnico">
+    <FunctionImport Name="SP_EditarTipoEquipo" ReturnType="Collection(Int32)">
+      <Parameter Name="idTipoEquipo" Mode="In" Type="Int32" />
+      <Parameter Name="equipo" Mode="In" Type="String" />
+      <Parameter Name="descripcion" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SP_Eliminar_Tecnico" ReturnType="Collection(Int32)">
       <Parameter Name="dni" Mode="In" Type="Int32" />
     </FunctionImport>
-    <FunctionImport Name="SP_Eliminar_TipoEquipo">
+    <FunctionImport Name="SP_Eliminar_TipoEquipo" ReturnType="Collection(Int32)">
       <Parameter Name="IdTipoEquipo" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SP_EliminarDivision" ReturnType="Collection(Int32)">
+      <Parameter Name="idDivision" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="SP_InsertarDepartamento">
       <Parameter Name="Departamento" Mode="In" Type="String" />

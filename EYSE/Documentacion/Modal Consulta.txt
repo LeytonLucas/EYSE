@@ -1,0 +1,43 @@
+﻿@*Modal Para consulta de Eliminacion*@
+<div class="modal" id="modalConsulta" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-light">
+                <h5 class="modal-title">Confirmar Accion</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>¿Esta seguro que desea realizar eliminar este Elemento?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-outline-danger">Eliminar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+ <script>
+
+        function confirmacion(IdEquipo) {
+
+            $("#modalConsulta").modal("show");
+            let btnEliminar = $("#modalConsulta .modal-footer .btn-outline-danger");
+            btnEliminar.on("click", () => {
+
+                $.post('@Url.Action("#", "Tecnicos")', { IdEquipo: IdEquipo }, function (Response) { RespuestaEliminar(Response) });
+            })
+        }
+
+        function RespuestaEliminar(Response) {
+            $("#modalConsulta").modal("hide");
+            if (Response == "Eliminado") {
+                setTimeout(window.location.reload(), 1500);
+            } else {
+                alert("Ocurrio un error");
+            }
+        };
+        console.log("Script")
+
+    </script>

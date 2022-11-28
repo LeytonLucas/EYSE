@@ -30,7 +30,6 @@ namespace EYSE.Controllers
 
         public ActionResult AgregarEquipo()
         {
-
             return View();
         }
 
@@ -59,6 +58,32 @@ namespace EYSE.Controllers
             }
 
         }
-        
+
+        [HttpPost]
+        public JsonResult EnviarEliminarEquipo(int? IdEquipo)
+        {
+            if (IdEquipo != null)
+            {
+                using (EYSEEntities db = new EYSEEntities())
+                {
+                    try
+                    {
+                        db.SP_Eliminar_TipoEquipo(IdEquipo);
+                        return Json(new { data = "Eliminado correctamente" });
+                    }
+                    catch (Exception)
+                    {
+                        return Json(new { data = "Ha ocurrido un error" });
+                        throw;
+                    }
+                }
+            }
+            else
+            {
+                return Json(new { data = "Ha ocurrido un error, datos vacios" });
+            }
+
+        }
+
     }
 }

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="EYSEModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="EYSEModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Causas">
           <Key>
             <PropertyRef Name="IdMotivo" />
@@ -163,11 +163,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="Eliminar_Tecnico" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+        <Function Name="SP_EditarTipoEquipo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idTipoEquipo" Type="int" Mode="In" />
+          <Parameter Name="equipo" Type="varchar" Mode="In" />
+          <Parameter Name="descripcion" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_Eliminar_Tecnico" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="dni" Type="int" Mode="In" />
         </Function>
         <Function Name="SP_Eliminar_TipoEquipo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdTipoEquipo" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_EliminarDivision" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idDivision" Type="int" Mode="In" />
         </Function>
         <Function Name="SP_InsertarDepartamento" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Departamento" Type="varchar" Mode="In" />
@@ -235,8 +243,7 @@
             <End Role="Solicitud" EntitySet="Solicitud" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="EYSEModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -449,14 +456,22 @@
             <End Role="Tecnico" EntitySet="Tecnico" />
             <End Role="Solicitud" EntitySet="Solicitud" />
           </AssociationSet>
-          <FunctionImport Name="Eliminar_Tecnico">
-            <Parameter Name="dni" Mode="In" Type="Int32" />
+          <FunctionImport Name="SP_EditarTipoEquipo" ReturnType="Collection(Int32)">
+            <Parameter Name="idTipoEquipo" Mode="In" Type="Int32" />
+            <Parameter Name="equipo" Mode="In" Type="String" />
+            <Parameter Name="descripcion" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="SP_Eliminar_TipoEquipo">
-            <Parameter Name="IdTipoEquipo" Mode="In" Type="Int32" />
+          <FunctionImport Name="SP_Eliminar_Tecnico" ReturnType="Collection(Int32)">
+          <Parameter Name="dni" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Eliminar_TipoEquipo" ReturnType="Collection(Int32)">
+          <Parameter Name="IdTipoEquipo" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_EliminarDivision" ReturnType="Collection(Int32)">
+          <Parameter Name="idDivision" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SP_InsertarDepartamento">
-            <Parameter Name="Departamento" Mode="In" Type="String" />
+          <Parameter Name="Departamento" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="SP_InsertarDivision">
             <Parameter Name="Division" Mode="In" Type="String" />
@@ -465,7 +480,7 @@
             <Parameter Name="IdDepartamento" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SP_InsertarMotivoIngreso">
-            <Parameter Name="FallaMotivo" Mode="In" Type="String" />
+          <Parameter Name="FallaMotivo" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="SP_InsertarTecnico">
             <Parameter Name="DNI" Mode="In" Type="Int32" />
@@ -477,10 +492,10 @@
             <Parameter Name="Descripcion" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="SP_Obtener_Departamentos" ReturnType="Collection(EYSEModel.SP_Obtener_Departamentos_Result)">
-            <Parameter Name="IdDepartamento" Mode="In" Type="Int32" />
+          <Parameter Name="IdDepartamento" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SP_Obtener_Tecnicos" ReturnType="Collection(EYSEModel.SP_Obtener_Tecnicos_Result)">
-            <Parameter Name="IdTecnico" Mode="In" Type="Int32" />
+          <Parameter Name="IdTecnico" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SP_Obtener_TipoEquipo" ReturnType="Collection(EYSEModel.SP_Obtener_TipoEquipo_Result)" />
         </EntityContainer>
@@ -587,8 +602,10 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="Eliminar_Tecnico" FunctionName="EYSEModel.Store.Eliminar_Tecnico" />
+          <FunctionImportMapping FunctionImportName="SP_EditarTipoEquipo" FunctionName="EYSEModel.Store.SP_EditarTipoEquipo" />
+          <FunctionImportMapping FunctionImportName="SP_Eliminar_Tecnico" FunctionName="EYSEModel.Store.SP_Eliminar_Tecnico" />
           <FunctionImportMapping FunctionImportName="SP_Eliminar_TipoEquipo" FunctionName="EYSEModel.Store.SP_Eliminar_TipoEquipo" />
+          <FunctionImportMapping FunctionImportName="SP_EliminarDivision" FunctionName="EYSEModel.Store.SP_EliminarDivision" />
           <FunctionImportMapping FunctionImportName="SP_InsertarDepartamento" FunctionName="EYSEModel.Store.SP_InsertarDepartamento" />
           <FunctionImportMapping FunctionImportName="SP_InsertarDivision" FunctionName="EYSEModel.Store.SP_InsertarDivision" />
           <FunctionImportMapping FunctionImportName="SP_InsertarMotivoIngreso" FunctionName="EYSEModel.Store.SP_InsertarMotivoIngreso" />

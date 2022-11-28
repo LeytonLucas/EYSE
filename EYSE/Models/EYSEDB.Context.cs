@@ -36,22 +36,48 @@ namespace EYSE.Models
         public virtual DbSet<Tecnico> Tecnico { get; set; }
         public virtual DbSet<TipoEquipo> TipoEquipo { get; set; }
     
-        public virtual int Eliminar_Tecnico(Nullable<int> dni)
+        public virtual ObjectResult<Nullable<int>> SP_EditarTipoEquipo(Nullable<int> idTipoEquipo, string equipo, string descripcion)
+        {
+            var idTipoEquipoParameter = idTipoEquipo.HasValue ?
+                new ObjectParameter("idTipoEquipo", idTipoEquipo) :
+                new ObjectParameter("idTipoEquipo", typeof(int));
+    
+            var equipoParameter = equipo != null ?
+                new ObjectParameter("equipo", equipo) :
+                new ObjectParameter("equipo", typeof(string));
+    
+            var descripcionParameter = descripcion != null ?
+                new ObjectParameter("descripcion", descripcion) :
+                new ObjectParameter("descripcion", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("SP_EditarTipoEquipo", idTipoEquipoParameter, equipoParameter, descripcionParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> SP_Eliminar_Tecnico(Nullable<int> dni)
         {
             var dniParameter = dni.HasValue ?
                 new ObjectParameter("dni", dni) :
                 new ObjectParameter("dni", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Eliminar_Tecnico", dniParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("SP_Eliminar_Tecnico", dniParameter);
         }
     
-        public virtual int SP_Eliminar_TipoEquipo(Nullable<int> idTipoEquipo)
+        public virtual ObjectResult<Nullable<int>> SP_Eliminar_TipoEquipo(Nullable<int> idTipoEquipo)
         {
             var idTipoEquipoParameter = idTipoEquipo.HasValue ?
                 new ObjectParameter("IdTipoEquipo", idTipoEquipo) :
                 new ObjectParameter("IdTipoEquipo", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_Eliminar_TipoEquipo", idTipoEquipoParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("SP_Eliminar_TipoEquipo", idTipoEquipoParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> SP_EliminarDivision(Nullable<int> idDivision)
+        {
+            var idDivisionParameter = idDivision.HasValue ?
+                new ObjectParameter("idDivision", idDivision) :
+                new ObjectParameter("idDivision", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("SP_EliminarDivision", idDivisionParameter);
         }
     
         public virtual int SP_InsertarDepartamento(string departamento)

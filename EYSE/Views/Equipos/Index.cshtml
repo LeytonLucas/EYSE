@@ -7,20 +7,21 @@
 
 <center><h2>Administracion de Equipos</h2></center>
 <div class="row mt-4 d-flex">
-    
-    <div class="col-lg-10 d-flex justify-content-end  mb-3">
-        <a href="@Url.Action("AgregarEquipo")" class="btn btn-outline-success">Nuevo Equipo</a>
+
+    <div class="d-flex justify-content-between  mb-3 px-5">
+        <a href="@Url.Action("Index","Administracion")" class="btn btn-outline-success">Volver</a>
+        <button onclick="crearEquipo()" class="btn btn-outline-success">Nuevo Equipo</button>
     </div>
 
 </div>
 
 <div class="row d-flex justify-content-center">
-    <div class="col-8">
+    <div class="col-12 col-md-10">
 
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th scope="col">#id</th>
+                    <th scope="col">Nº</th>
                     <th scope="col">Nombre de Equipo</th>
                     <th scope="col">Descripcion</th>
                     <th scope="col">Opciones</th>
@@ -35,7 +36,12 @@
                             <th scope="row">@item.IdTipoEquipo</th>
                             <td>@item.Equipo</td>
                             <td>@item.Descripcion</td>
-                            <td><i class="">Delete</i></td>
+                            <td>
+                                <div class="d-flex justify-content-around">
+                                    <i class="fa fa-edit text-success"></i>
+                                    <i class="fa fa-times text-danger" onclick="confirmacion(@item.IdTipoEquipo)"></i>
+                                </div>
+                            </td>
                         </tr>
 
                     }
@@ -47,3 +53,71 @@
 
 </div>
 
+@*Modal Para consulta de Eliminacion*@
+<div class="modal" id="modalConsulta" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-light">
+                <h5 class="modal-title">Confirmar Accion</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>¿Esta seguro que desea realizar eliminar este Elemento?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-outline-danger">Eliminar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Agregar Equipo -->
+<div class="modal fade" id="modalCrear" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Crear Nuevo Equipo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="modalContenido">
+                <div class="spinner-border" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+            @*<div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary">Understood</button>
+            </div>*@
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+
+        function confirmacion(IdEquipo) {
+
+            $("#modalConsulta").modal("show");
+            let btnEliminar = $("#modalConsulta .modal-footer .btn-outline-danger");
+            btnEliminar.on("click", () => {
+
+                $.post('@Url.Action("EnviarEliminarEquipo", "Equipos")', { IdEquipo: IdEquipo }, function (Response) { RespuestaEliminar(Response) });
+            })
+        }
+
+        function RespuestaEliminar(Response) {
+            $("#modalConsulta").modal("hide");
+            if (Response == "Eliminado correctamente") {
+                setTimeout(window.location.reload(), 1500);
+            } else {
+                alert("Ocurrio un error");
+            }
+        };
+
+        function crearEquipo() {
+            $("#modalCrear").modal("show");
+            $("#modalContenido").load('@Url.Action("AgregarEquipo", "Equipos")');
+        }
+    </script>
+} 
