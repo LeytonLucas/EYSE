@@ -7,8 +7,9 @@
 
 <center><h2>Tecnicos</h2></center>
 <div class="row mt-4 d-flex">
-    <div class="col-lg-10 d-flex justify-content-end  mb-3">
-        <a href="@Url.Action("AgregarTecnico")" class="btn btn-outline-success">Nuevo Tecnico</a>
+    <div class="d-flex justify-content-between  mb-3 px-5">
+        <a href="@Url.Action("Index","Administracion")" class="btn btn-outline-success ms-5">Volver</a>
+        <button onclick="crearTecnico()" class="btn btn-outline-success me-5">Nuevo Tecnico</button>
     </div>
 </div>
 
@@ -51,7 +52,7 @@
 
 @*Modal Para consulta de Eliminacion*@
 <div class="modal" id="modalConsulta" tabindex="-1">
-    <div class="modal-dialog"  >
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Confirmar Accion</h5>
@@ -68,6 +69,26 @@
     </div>
 </div>
 
+<!-- Modal Agregar Tecnico -->
+<div class="modal fade" id="modalCrear" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Crear Nuevo Tecnico</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="modalContenido">
+                <div class="spinner-border" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+            @*<div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary">Understood</button>
+                </div>*@
+        </div>
+    </div>
+</div>
 
 @section scripts{
     <script>
@@ -88,9 +109,15 @@
             if (Response == "Eliminado") {
                 setTimeout(window.location.reload(), 1500);
             } else {
-                alert("Ocurrio un error");
+                alert("Ocurrio un error, verificar store");
+                setTimeout(window.location.reload(), 1000);
             }
         };
+
+        function crearTecnico() {
+            $("#modalCrear").modal("show");
+            $("#modalContenido").load('@Url.Action("AgregarTecnico","Tecnicos")');
+        }
     </script>
 }
 

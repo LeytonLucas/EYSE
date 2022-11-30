@@ -9,8 +9,8 @@
 <div class="row mt-4 d-flex">
 
     <div class="d-flex justify-content-between  mb-3 px-5">
-        <a href="@Url.Action("Index","Administracion")" class="btn btn-outline-success">Volver</a>
-        <button onclick="crearEquipo()" class="btn btn-outline-success">Nuevo Equipo</button>
+        <a href="@Url.Action("Index","Administracion")" class="btn btn-outline-success ms-3">Volver</a>
+        <button onclick="crearEquipo()" class="btn btn-outline-success me-3">Nuevo Equipo</button>
     </div>
 
 </div>
@@ -111,7 +111,8 @@
             if (Response == "Eliminado correctamente") {
                 setTimeout(window.location.reload(), 1500);
             } else {
-                alert("Ocurrio un error");
+                alert("Verificar store un error");
+                setTimeout(window.location.reload(), 1000);
             }
         };
 

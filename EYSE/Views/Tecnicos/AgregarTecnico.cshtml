@@ -1,12 +1,11 @@
 ﻿
 @{
+    Layout = "~/Views/Shared/_Layout_SinHeader.cshtml";
     ViewBag.Title = "Agregar Tecnico";
 }
 
-<center><h2>Agregar Nuevo Tecnico</h2></center>
-<div class="container d-inline-flex justify-content-center">
 
-    <form id="formulario" class="needs-validation col-12 col-md-8" >
+    <form id="formulario" class="needs-validation" >
 
         <label for="exampleFormControlInput1" class="form-label lead">DNI</label>
         <input type="number" class="form-control shadow-sm" id="DNI" placeholder="DNI" name="DNI" required>
@@ -17,13 +16,9 @@
         <label for="exampleFormControlInput1" class="form-label lead">Nombre</label>
         <input type="text" class="form-control mb-3 shadow-sm" id="Nombre" placeholder="Nombre" name="Nombre" required>
 
-        <button class="btn btn-primary">Crear Tecnico</button>
+        <button class="btn btn-outline-success my-3">Crear Tecnico</button>
 
     </form>
-
-</div>
-    
-
 
 
 @section Scripts{
@@ -44,8 +39,10 @@
             Tecnico.nombre = $("#Nombre").val()
             Tecnico.apellido = $("#Apellido").val()
 
+            let valido = true;
+
             if (!SoloTexto.test(Tecnico.apellido)) {
-                console.log('formato de apellido no valido');
+                valido = false
                 $("#Apellido").addClass('is-invalid');
             } else {
                 $("#Apellido").removeClass('is-invalid');
@@ -53,23 +50,24 @@
             }
 
             if (!SoloTexto.test(Tecnico.nombre)) {
-                console.log('formato no nombre valido');
+                valido = false
                 $("#Nombre").addClass('is-invalid');
-                
+
             } else {
                 $("#Nombre").removeClass('is-invalid');
                 $("#Nombre").addClass('is-valid');
             }
 
-            console.log(JSON.stringify(Tecnico));
-            $.post('@Url.Action("EnviarAgregarTecnico", "Tecnicos")', { TecnicoJson: JSON.stringify(Tecnico) }, function (Response) { mensajeRespuesta(Response) });
+            //console.log(JSON.stringify(Tecnico));
+            if (valido) {
+                $.post('@Url.Action("EnviarAgregarTecnico", "Tecnicos")', { TecnicoJson: JSON.stringify(Tecnico) }, function (Response) { mensajeRespuesta(Response) });
+            }
         });
 
 
         function mensajeRespuesta(Respuesta) {
-            alert(Respuesta);
             setTimeout(function () {
-                window.location.replace('@Url.Action("TecnicosIndex", "Tecnicos")');
+                window.location.reload();
             },1000)
 
         }
