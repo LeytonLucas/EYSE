@@ -123,6 +123,7 @@
     <Compile Include="Controllers\DepartamentosController.cs" />
     <Compile Include="Controllers\EquiposController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MotivosIngresoController.cs" />
     <Compile Include="Controllers\TecnicosController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -158,6 +159,9 @@
       <DependentUpon>EyseDB.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Solicitud.cs">
+      <DependentUpon>EyseDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SP_Obtener_Causas_Result.cs">
       <DependentUpon>EyseDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SP_Obtener_Departamentos_Result.cs">
@@ -322,6 +326,7 @@
     <Content Include="webfonts\fa-brands-400.ttf" />
     <Content Include="webfonts\fa-brands-400.eot" />
     <Content Include="Views\Shared\_Layout_SinHeader.cshtml" />
+    <Content Include="Views\MotivosIngreso\IndexMotivoIngreso.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

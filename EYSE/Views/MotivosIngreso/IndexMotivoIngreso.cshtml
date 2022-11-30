@@ -1,0 +1,52 @@
+﻿@using EYSE.Models
+@model List<SP_Obtener_Causas_Result>
+@{
+    ViewBag.Title = "IndexMotivoIngreso";
+}
+
+<center><h2>Motivos de Ingreso</h2></center>
+<div class="row mt-4 d-flex">
+
+    <div class="d-flex justify-content-between  mb-3 px-5">
+        <a href="@Url.Action("Index","Administracion")" class="btn btn-outline-success ms-3">Volver</a>
+        <button onclick="crearMotivo()" class="btn btn-outline-success me-3">Nuevo Motivo Ingreso</button>
+    </div>
+
+</div>
+
+<div class="row d-flex justify-content-center">
+    <div class="col-12 col-md-10">
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Nº</th>
+                    <th scope="col">Nombre Motivo de Ingreso</th>
+                    <th scope="col">Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @{ foreach (var item in Model)
+                    {
+
+                        <tr>
+                            <th scope="row">@item.IdMotivo</th>
+                            <td>@item.FallaMotivo</td>
+                            <td>
+                                <div class="d-flex justify-content-around">
+                                    <i class="fa fa-edit text-success"></i>
+                                    <i class="fa fa-times text-danger" onclick="confirmacion(@item.IdMotivo)"></i>
+                                </div>
+                            </td>
+                        </tr>
+
+                    }
+                }
+            </tbody>
+        </table>
+
+    </div>
+
+</div>
+

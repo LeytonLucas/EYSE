@@ -171,5 +171,10 @@ namespace EYSE.Models
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_Obtener_TipoEquipo_Result>("SP_Obtener_TipoEquipo");
         }
+    
+        public virtual ObjectResult<SP_Obtener_Causas_Result> SP_Obtener_Causas()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_Obtener_Causas_Result>("SP_Obtener_Causas");
+        }
     }
 }

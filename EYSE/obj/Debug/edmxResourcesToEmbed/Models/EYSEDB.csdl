@@ -251,6 +251,7 @@
       <Parameter Name="IdTecnico" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="SP_Obtener_TipoEquipo" ReturnType="Collection(EYSEModel.SP_Obtener_TipoEquipo_Result)" />
+    <FunctionImport Name="SP_Obtener_Causas" ReturnType="Collection(EYSEModel.SP_Obtener_Causas_Result)" />
   </EntityContainer>
   <ComplexType Name="SP_Obtener_Departamentos_Result">
     <Property Type="Int32" Name="IdDepartamento" Nullable="false" />
@@ -266,5 +267,9 @@
     <Property Type="Int32" Name="IdTipoEquipo" Nullable="false" />
     <Property Type="String" Name="Equipo" Nullable="false" MaxLength="25" />
     <Property Type="String" Name="Descripcion" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="SP_Obtener_Causas_Result">
+    <Property Type="Int32" Name="IdMotivo" Nullable="false" />
+    <Property Type="String" Name="FallaMotivo" Nullable="true" MaxLength="25" />
   </ComplexType>
 </Schema>

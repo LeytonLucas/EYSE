@@ -119,5 +119,13 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_Obtener_Causas" FunctionName="EYSEModel.Store.SP_Obtener_Causas">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="EYSEModel.SP_Obtener_Causas_Result">
+          <ScalarProperty Name="IdMotivo" ColumnName="IdMotivo" />
+          <ScalarProperty Name="FallaMotivo" ColumnName="FallaMotivo" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>
