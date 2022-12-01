@@ -9,7 +9,7 @@
 
     <div class="d-flex justify-content-between  mb-3 px-5">
         <a href="@Url.Action("Index","Administracion")" class="btn btn-outline-success ms-3">Volver</a>
-        <button onclick="crearMotivo()" class="btn btn-outline-success me-3">Nuevo Motivo Ingreso</button>
+        <button onclick="MostrarModal()" class="btn btn-outline-success me-3">Nuevo Motivo Ingreso</button>
     </div>
 
 </div>
@@ -50,3 +50,61 @@
 
 </div>
 
+<!-- Modal Agregar Motivo Ingreso -->
+<div class="modal fade" id="modalCrear" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Nuevo motivo de Ingreso</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="modalContenido">
+                <div class="row px-2">
+                    <label class="form-label mt-2">Nombre de Motivo de ingreso</label>
+                    <input type="text" name="motivoIngreso" value="" id="NuevoMotivo" class="form-control" />
+                </div>
+            </div>
+            <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-outline-success" onclick="crearMotivo()">Confirmar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+
+        const SoloTexto = /^[a-zA-Z\sñáéíóúÁÉÍÓÚ]+$/;
+
+
+        function MostrarModal() {
+            $("#modalCrear").modal("show");
+        }
+
+        function crearMotivo() {
+            let nuevoMotivo = $("#NuevoMotivo").val();
+
+            if (!SoloTexto.test(nuevoMotivo)) {
+                $("#NuevoMotivo").addClass('is-invalid');
+                return;
+            } else {
+                $("#NuevoMotivo").removeClass('is-invalid');
+                $("#NuevoMotivo").addClass('is-valid');
+                $.post('@Url.Action("EnviarNuevoMotivo", "MotivosIngreso")', { Motivo: nuevoMotivo }, function (Response) { mensajeRespuesta(Response) });
+            }
+        }
+
+
+        function mensajeRespuesta(Respuesta) {
+
+            if (Respuesta.msg == "Ingresado") {
+                window.location.reload();
+            } else {
+                alert("Ha ocurrido un error")
+            }
+
+        }
+
+    </script>
+}

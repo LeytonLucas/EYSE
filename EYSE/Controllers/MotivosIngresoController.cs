@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using EYSE.Models;
+using System.Text;
 
 namespace EYSE.Controllers
 {
@@ -25,6 +26,29 @@ namespace EYSE.Controllers
                 throw;
             }
  
+        }
+
+        [HttpPost]
+        public JsonResult EnviarNuevoMotivo(string Motivo)
+        {
+            try
+            {             
+
+                using (EYSEEntities db = new EYSEEntities())
+                {
+                    db.SP_InsertarMotivoIngreso(Motivo);
+                }
+
+                return Json(new { msg = "Ingresado" });
+            }
+            catch (Exception e)
+            {
+                return Json( new { msg = "Error" } );
+                throw;
+
+            }
+
+
         }
     }
 }
