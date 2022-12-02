@@ -43,7 +43,7 @@ namespace EYSE.Controllers
             }
             catch (Exception e)
             {
-                return Json( new { msg = "Error" } );
+                return Json( new { msg = "Error" + e} );
                 throw;
 
             }

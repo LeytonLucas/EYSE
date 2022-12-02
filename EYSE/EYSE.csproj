@@ -217,6 +217,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Imagenes\ImagenIndex.jpg" />
+    <Content Include="Imagenes\inventario.jpg" />
     <Content Include="Models\EyseDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>EyseDB.edmx</DependentUpon>
