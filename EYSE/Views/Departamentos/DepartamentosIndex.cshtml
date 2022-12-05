@@ -32,7 +32,7 @@
                         <tr>
                             <th scope="row">@item.IdDepartamento</th>
                             <td>@item.Departamento</td>
-                            <td><i class="">Detalles</i></td>
+                            <td><a title="Ver Divisiones" onclick="mostrarDivision(@item.IdDepartamento)"><i class="fa fa-search-plus text-primary"></i></a></td>
                         </tr>
 
                     }
@@ -123,6 +123,12 @@
         function crearDepartamento() {
             $("#modalCrear").modal("show");
             $("#modalContenido").load('@Url.Action("AgregarDepartamento","Departamentos")');
+        }
+
+        function mostrarDivision(IdDpto) {
+            console.log(IdDpto)
+
+            $.post('@Url.Action("EnviarEliminarTecnico", "Tecnicos")', { DNI: dni }, function (Response) { RespuestaEliminar(Response) });
         }
     </script>
 }

@@ -1,15 +1,15 @@
 ﻿
 @{
+    Layout = "~/Views/Shared/_Layout_SinHeader.cshtml";
     ViewBag.Title = "AgregarDepartamento";
 }
 
-<h2>AgregarDepartamento</h2>
 
 <form id="formulario" class="needs-validation">
     <label for="exampleFormControlInput1" class="form-label lead">Departamento</label>
     <input type="text" class="form-control mb-3" id="dpto" placeholder="Nombre del Departamento" name="departamento" required>
 
-    <button class="btn btn-primary">Crear Deartamento</button>
+    <center><button class="btn btn-outline-success">Crear Deartamento</button></center>
 </form>
 
 @section Scripts{
@@ -20,8 +20,14 @@
             let Departamento = $("#dpto").val().trim();
 
             if (Departamento !== "" && Departamento !== null) {
+                $("#dpto").removeClass("is-invalid")
+                $("#dpto").addClass("is-valid")
                 $.post('@Url.Action("EnviarAgregarDto","Departamentos")', { dpto: Departamento }, (Response) => { mensajeRespuesta(Response) })
+            } else {
+                $("#dpto").removeClass("is-valid")
+                $("#dpto").addClass("is-invalid")
             }
+
         })
 
         function mensajeRespuesta(Response) {

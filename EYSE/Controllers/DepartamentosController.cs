@@ -68,6 +68,29 @@ namespace EYSE.Controllers
             return Json("");
         }
 
-        
+        [HttpPost]
+        public JsonResult ObtenerDivisiones(int IdDpto)
+        {
+            try
+            {
+                using (EYSEEntities db = new EYSEEntities())
+                {
+                    if (IdDpto != 0)
+                    {
+                        //List<Division> Divisiones = SP_Obtener_Departamentos_Result(IdDpto); 
+
+                        
+                        return Json(new { msg = "Ya existe un departamento con el nombre elegido"});
+
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                return Json(new { msg = "Error" });
+                throw;
+            }
+            return Json("");
+        }
     }
 }
