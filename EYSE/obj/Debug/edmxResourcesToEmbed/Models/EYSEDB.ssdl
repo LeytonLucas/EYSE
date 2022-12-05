@@ -197,6 +197,9 @@
   <Function Name="SP_Obtener_Departamentos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="IdDepartamento" Type="int" Mode="In" />
   </Function>
+  <Function Name="SP_Obtener_Divisiones" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="IdDepartamento" Type="int" Mode="In" />
+  </Function>
   <Function Name="SP_Obtener_Tecnicos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="IdTecnico" Type="int" Mode="In" />
   </Function>

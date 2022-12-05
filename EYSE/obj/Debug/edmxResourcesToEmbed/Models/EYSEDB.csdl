@@ -252,6 +252,9 @@
     </FunctionImport>
     <FunctionImport Name="SP_Obtener_TipoEquipo" ReturnType="Collection(EYSEModel.SP_Obtener_TipoEquipo_Result)" />
     <FunctionImport Name="SP_Obtener_Causas" ReturnType="Collection(EYSEModel.SP_Obtener_Causas_Result)" />
+    <FunctionImport Name="SP_Obtener_Divisiones" ReturnType="Collection(EYSEModel.SP_Obtener_Divisiones_Result)">
+      <Parameter Name="IdDepartamento" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="SP_Obtener_Departamentos_Result">
     <Property Type="Int32" Name="IdDepartamento" Nullable="false" />
@@ -271,5 +274,12 @@
   <ComplexType Name="SP_Obtener_Causas_Result">
     <Property Type="Int32" Name="IdMotivo" Nullable="false" />
     <Property Type="String" Name="FallaMotivo" Nullable="true" MaxLength="25" />
+  </ComplexType>
+  <ComplexType Name="SP_Obtener_Divisiones_Result">
+    <Property Type="Int32" Name="IdDivision" Nullable="false" />
+    <Property Type="String" Name="Division" Nullable="false" MaxLength="25" />
+    <Property Type="String" Name="IdLocal" Nullable="true" MaxLength="5" />
+    <Property Type="String" Name="Observacion" Nullable="true" MaxLength="100" />
+    <Property Type="Int32" Name="IdDepartamento" Nullable="false" />
   </ComplexType>
 </Schema>

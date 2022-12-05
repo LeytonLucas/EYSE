@@ -168,6 +168,9 @@
     <Compile Include="Models\SP_Obtener_Departamentos_Result.cs">
       <DependentUpon>EyseDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SP_Obtener_Divisiones_Result.cs">
+      <DependentUpon>EyseDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\SP_Obtener_Tecnicos_Result.cs">
       <DependentUpon>EyseDB.tt</DependentUpon>
     </Compile>

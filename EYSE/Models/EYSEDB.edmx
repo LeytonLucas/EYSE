@@ -202,6 +202,9 @@
         <Function Name="SP_Obtener_Departamentos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdDepartamento" Type="int" Mode="In" />
         </Function>
+        <Function Name="SP_Obtener_Divisiones" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdDepartamento" Type="int" Mode="In" />
+        </Function>
         <Function Name="SP_Obtener_Tecnicos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdTecnico" Type="int" Mode="In" />
         </Function>
@@ -500,6 +503,9 @@
           </FunctionImport>
           <FunctionImport Name="SP_Obtener_TipoEquipo" ReturnType="Collection(EYSEModel.SP_Obtener_TipoEquipo_Result)" />
           <FunctionImport Name="SP_Obtener_Causas" ReturnType="Collection(EYSEModel.SP_Obtener_Causas_Result)" />
+          <FunctionImport Name="SP_Obtener_Divisiones" ReturnType="Collection(EYSEModel.SP_Obtener_Divisiones_Result)">
+            <Parameter Name="IdDepartamento" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="SP_Obtener_Departamentos_Result">
           <Property Type="Int32" Name="IdDepartamento" Nullable="false" />
@@ -519,6 +525,13 @@
         <ComplexType Name="SP_Obtener_Causas_Result">
           <Property Type="Int32" Name="IdMotivo" Nullable="false" />
           <Property Type="String" Name="FallaMotivo" Nullable="true" MaxLength="25" />
+        </ComplexType>
+        <ComplexType Name="SP_Obtener_Divisiones_Result">
+          <Property Type="Int32" Name="IdDivision" Nullable="false" />
+          <Property Type="String" Name="Division" Nullable="false" MaxLength="25" />
+          <Property Type="String" Name="IdLocal" Nullable="true" MaxLength="5" />
+          <Property Type="String" Name="Observacion" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="IdDepartamento" Nullable="false" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -649,6 +662,17 @@
               <ComplexTypeMapping TypeName="EYSEModel.SP_Obtener_Causas_Result">
                 <ScalarProperty Name="IdMotivo" ColumnName="IdMotivo" />
                 <ScalarProperty Name="FallaMotivo" ColumnName="FallaMotivo" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Obtener_Divisiones" FunctionName="EYSEModel.Store.SP_Obtener_Divisiones">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="EYSEModel.SP_Obtener_Divisiones_Result">
+                <ScalarProperty Name="IdDivision" ColumnName="IdDivision" />
+                <ScalarProperty Name="Division" ColumnName="Division" />
+                <ScalarProperty Name="IdLocal" ColumnName="IdLocal" />
+                <ScalarProperty Name="Observacion" ColumnName="Observacion" />
+                <ScalarProperty Name="IdDepartamento" ColumnName="IdDepartamento" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

@@ -32,7 +32,7 @@
                         <tr>
                             <th scope="row">@item.IdDepartamento</th>
                             <td>@item.Departamento</td>
-                            <td><a title="Ver Divisiones" onclick="mostrarDivision(@item.IdDepartamento)"><i class="fa fa-search-plus text-primary"></i></a></td>
+                            <td><a title="Ver Divisiones" onclick="mostrarDivision(@item.IdDepartamento , '@item.Departamento')"><i class="fa fa-search-plus text-primary"></i></a></td>
                         </tr>
 
                     }
@@ -59,14 +59,15 @@
                 <thead>
                     <tr>
                         <th scope="col">Nombre Division</th>
+                        <th scope="col">Local</th>
+                        <th scope="col">Observación</th>
                         <th scope="col">Opciones</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="bodyTableDivision">
 
                     <tr>
-                        <td>Sistemas</td>
-                        <td><i class="">Detalles</i></td>
+                        <td colspan="4">Seleccionar Departamento</td>
                     </tr>
 
                 </tbody>
@@ -125,10 +126,27 @@
             $("#modalContenido").load('@Url.Action("AgregarDepartamento","Departamentos")');
         }
 
-        function mostrarDivision(IdDpto) {
-            console.log(IdDpto)
+        function mostrarDivision(IdDpto, nombreDpto) {
+            $(".card h6").text(`Departamento: ${nombreDpto}`);
 
-            $.post('@Url.Action("EnviarEliminarTecnico", "Tecnicos")', { DNI: dni }, function (Response) { RespuestaEliminar(Response) });
+            $.post('@Url.Action("ObtenerDivisiones", "Departamentos")', { IdDpto: IdDpto }, function (Response) { RespuestaDivisiones(Response) });
+        }
+
+        function RespuestaDivisiones(Response) {
+            let divisiones = JSON.parse(Response.divs);
+            let row = "";
+            let contentTable = $("#bodyTableDivision")
+            contentTable.empty();
+            if (divisiones.length > 0) {
+                divisiones.forEach(division => {
+                    row = `<tr><td>${division.Division}</td><td>${division.IdLocal}</td><td>${division.Observacion}</td><td><i class="fa fa-trash text-danger"></i></td></tr>`;
+                    contentTable.append(row);
+                })
+            } else {
+                row = `<tr><td colspan="4">El departamento no posee Divisiones</td></tr>`;
+                contentTable.append(row);
+            }
+            
         }
     </script>
 }

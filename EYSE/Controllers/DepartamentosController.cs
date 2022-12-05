@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using EYSE.Models;
+using Newtonsoft.Json;
 
 namespace EYSE.Controllers
 {
@@ -77,10 +78,10 @@ namespace EYSE.Controllers
                 {
                     if (IdDpto != 0)
                     {
-                        //List<Division> Divisiones = SP_Obtener_Departamentos_Result(IdDpto); 
+                        List<SP_Obtener_Divisiones_Result> Divisiones = db.SP_Obtener_Divisiones(IdDpto).ToList();
+                        string Divs = JsonConvert.SerializeObject(Divisiones);
 
-                        
-                        return Json(new { msg = "Ya existe un departamento con el nombre elegido"});
+                        return Json(new { msg = "Exito", divs = Divs});
 
                     }
                 }

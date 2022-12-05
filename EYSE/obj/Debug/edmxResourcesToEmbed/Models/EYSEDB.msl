@@ -127,5 +127,16 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_Obtener_Divisiones" FunctionName="EYSEModel.Store.SP_Obtener_Divisiones">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="EYSEModel.SP_Obtener_Divisiones_Result">
+          <ScalarProperty Name="IdDivision" ColumnName="IdDivision" />
+          <ScalarProperty Name="Division" ColumnName="Division" />
+          <ScalarProperty Name="IdLocal" ColumnName="IdLocal" />
+          <ScalarProperty Name="Observacion" ColumnName="Observacion" />
+          <ScalarProperty Name="IdDepartamento" ColumnName="IdDepartamento" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

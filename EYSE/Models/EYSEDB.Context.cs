@@ -176,5 +176,14 @@ namespace EYSE.Models
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_Obtener_Causas_Result>("SP_Obtener_Causas");
         }
+    
+        public virtual ObjectResult<SP_Obtener_Divisiones_Result> SP_Obtener_Divisiones(Nullable<int> idDepartamento)
+        {
+            var idDepartamentoParameter = idDepartamento.HasValue ?
+                new ObjectParameter("IdDepartamento", idDepartamento) :
+                new ObjectParameter("IdDepartamento", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_Obtener_Divisiones_Result>("SP_Obtener_Divisiones", idDepartamentoParameter);
+        }
     }
 }
