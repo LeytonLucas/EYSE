@@ -34,10 +34,13 @@ namespace EYSE.Controllers
             return View();
         }
 
-        public ActionResult AgregarDivision()
+        public ActionResult AgregarDivision(int idDpto)
         {
-
-            return View();
+            using (EYSEEntities db = new EYSEEntities()) {
+                Departamento dpto = db.Departamento.Find(idDpto);
+                return View(dpto);
+            }
+            
         }
 
         [HttpPost]
@@ -49,13 +52,14 @@ namespace EYSE.Controllers
                     if(dpto != null)
                     {
                         string[] departamentos = db.SP_Obtener_Departamentos(0).Select(m => m.Departamento).ToArray();
-                        if (departamentos.Contains(dpto)) {
-                            return Json("Ya existe un departamento con el nombre elegido");
+                        if (departamentos.Contains(dpto))
+                        {
+                            return Json(new { msg = "Ya existe un departamento con el nombre elegido", tipo = "danger" });
                         }
                         else
                         {
                             db.SP_InsertarDepartamento(dpto);
-                            return Json("Exito");
+                            return Json(new { msg = "Exito", tipo = "success" });
                         }
 
                     }
@@ -68,6 +72,36 @@ namespace EYSE.Controllers
             }
             return Json("");
         }
+
+        [HttpPost]
+        public JsonResult EnviarAgregarDiv(int idDpto, string div, string obs, string local)
+        {
+            try
+            {
+                using (EYSEEntities db = new EYSEEntities())
+                {
+                    
+                    string[] divisiones = db.SP_Obtener_Divisiones(idDpto).Select(m => m.Division).ToArray();
+                    if (divisiones.Contains(div))
+                    {
+                        return Json(new { msg = "Ya existe una division con el nombre elegido", tipo="danger"});
+                    }
+                    else
+                    {
+                        db.SP_InsertarDivision(div, local, obs, idDpto);
+                        return Json(new { msg = "Exito", tipo= "success"});
+                    }
+  
+                }
+            }
+            catch (Exception)
+            {
+                return Json(new { msg = "Error", tipo="danger" });
+                throw;
+            }
+            return Json("");
+        }
+
 
         [HttpPost]
         public JsonResult ObtenerDivisiones(int IdDpto)

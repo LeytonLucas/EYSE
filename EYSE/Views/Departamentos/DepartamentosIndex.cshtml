@@ -46,7 +46,7 @@
 <div class="row d-flex justify-content-center mb-5">
     <div class="row mt-4 d-flex">
         <div class="col-lg-10 d-flex justify-content-end  mb-3">
-            <a href="@Url.Action("AgregarDepartamento")" class="btn btn-outline-success">Agregar Division</a>
+            <button onclick="agregarDiv()" data-dpto=0 class="btn btn-outline-success" id="btnAgragarDiv" disabled>Agregar Division</button>
         </div>
     </div>
     <div class="card px-0 col-12 col-lg-10">
@@ -67,7 +67,7 @@
                 <tbody id="bodyTableDivision">
 
                     <tr>
-                        <td colspan="4">Seleccionar Departamento</td>
+                        <td colspan="4" class="text-danger">Debe seleccionar un Departamento</td>
                     </tr>
 
                 </tbody>
@@ -98,10 +98,31 @@
     </div>
 </div>
 
+<!-- Modal Agregar Departamento -->
+<div class="modal fade" id="modalCrearDiv" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Agregar Division</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="modalContenidoDiv">
+                <div class="spinner-border" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+            @*<div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary">Understood</button>
+                </div>*@
+        </div>
+    </div>
+</div>
+
 @section scripts{
     <script>
 
-        function confirmacion(dni) {
+        @*function confirmacion(dni) {
 
             $("#modalCrear").modal("show");
             let btnEliminar = $("#modalConsulta .modal-footer .btn-outline-danger");
@@ -119,7 +140,12 @@
                 alert("Ocurrio un error, verificar store");
                 setTimeout(window.location.reload(), 1000);
             }
-        };
+        };*@
+        function agregarDiv() {
+            let idDpto = $("#btnAgragarDiv").data("data-dpto");
+            $("#modalCrearDiv").modal("show");
+            $("#modalContenidoDiv").load('@Url.Action("AgregarDivision", "Departamentos")', { idDpto: idDpto});
+        }
 
         function crearDepartamento() {
             $("#modalCrear").modal("show");
@@ -127,8 +153,9 @@
         }
 
         function mostrarDivision(IdDpto, nombreDpto) {
+            $("#btnAgragarDiv").removeAttr("disabled")
+            $("#btnAgragarDiv").data("data-dpto", IdDpto)
             $(".card h6").text(`Departamento: ${nombreDpto}`);
-
             $.post('@Url.Action("ObtenerDivisiones", "Departamentos")', { IdDpto: IdDpto }, function (Response) { RespuestaDivisiones(Response) });
         }
 
@@ -146,7 +173,7 @@
                 row = `<tr><td colspan="4">El departamento no posee Divisiones</td></tr>`;
                 contentTable.append(row);
             }
-            
+
         }
     </script>
 }

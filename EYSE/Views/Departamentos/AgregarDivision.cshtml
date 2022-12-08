@@ -1,24 +1,60 @@
-﻿
+﻿@using EYSE.Models
+@model Departamento
 @{
+    Layout = "~/Views/Shared/_Layout_SinHeader.cshtml";
     ViewBag.Title = "Agregar Division";
 }
-
-<Center><h2>Crear Division</h2></Center>
+<div id="divTemp">
+</div>
 
 <form id="formulario" class="needs-validation">
+    @*<label for="exampleFormControlInput1" class="form-label lead">Departamento</label>
+        <select name="departamento" class="form-control mb-2">
+            <option value="0">Sistemas</option>
+        </select>*@
+
     <label for="exampleFormControlInput1" class="form-label lead">Departamento</label>
-    <select name="departamento" class="form-control mb-2">
-        <option value="0">Sistemas</option>
-    </select>
+    <input type="text" class="form-control mb-2" id="dpto" name="Departamento" readonly value="@Model.Departamento1">
 
-    <label for="exampleFormControlInput1" class="form-label lead">Division</label>
-    <input type="text" class="form-control mb-2" id="division" placeholder="Nombre de la Division" name="division">
+    <label for="exampleFormControlInput2" class="form-label lead">Division</label>
+    <input type="text" class="form-control mb-2" id="division" placeholder="Nombre de la Division" name="division" required>
 
-    <label for="exampleFormControlInput1" class="form-label lead">Local</label>
-    <input type="text" class="form-control mb-2" id="local" placeholder="Local" name="local">
+    <label for="exampleFormControlInput3" class="form-label lead">Local</label>
+    <input type="text" class="form-control mb-2" id="local" placeholder="Local" name="local" required>
 
-    <label for="exampleFormControlInput1" class="form-label lead">Observacion</label>
+    <label for="exampleFormControlInput4" class="form-label lead">Observacion</label>
     <input type="text" class="form-control mb-3" id="observacion" placeholder="Observacion (Opcional)" name="observacion">
 
-    <button onclick="enviar()" class="btn btn-primary">Crear Division</button>
+    <center><button type="submit" class="btn btn-outline-success">Crear Division</button></center>
 </form>
+
+@section Scripts{
+    <script>
+        let idDpto = '@Model.IdDepartamento';
+        $("#formulario").on("submit", (e) => {
+            e.preventDefault();
+
+            let Departamento = $("#dpto").val().trim();
+            let Division = $("#division").val().trim();
+            let Observacion = $("#observacion").val().trim();
+            let Local = $("#local").val().trim();
+
+            if (Departamento !== "" && Division !== "" && Local !== "" ){
+
+                $.post('@Url.Action("EnviarAgregarDiv","Departamentos")', { idDpto: parseInt(idDpto), div: Division, obs: Observacion, local: Local }, (Response) => { mensajeRespuesta(Response) })
+            }
+
+        })
+
+        function mensajeRespuesta(Response) {
+            console.log(Response);
+            if (Response.msg == "Exito") {
+                AlertaInterna("Division Incorporada", Response.tipo,"divTemp");
+                setTimeout(() => { window.location.reload();},1500)    
+            } else {
+                AlertaInterna(Response.msg, Response.tipo, "divTemp");
+            }
+        }
+
+    </script>
+} 
